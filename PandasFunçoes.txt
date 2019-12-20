@@ -24,11 +24,19 @@ Exemplo = #Criando um dicionário onde cada chave será uma coluna do DataFrame
 	
 	Removendo linhas e colunas:
 #Removendo linhas pelo index
-s.drop([0, 1])
+s.drop([indice])
 #Removendo colunas utilizando o argumento axis=1
 df.drop('País', axis=1)
 #Removendo as linhas nulas da coluna
 df = df.dropna(subset=['nome_coluna'])
+#Colocando a media em uma linha nula
+>>>df.fillna(df.mean(0))
+
+	Removendo arquivos duplicados:
+#Informa um bollean na linha que contem arquivo duplicados
+>>>df.duplicated()
+#Remove todas as linhas duplicadas
+>>>df = df.drop_duplicates()
 
 	Coletando informações básicas sobre o DataFrame:
 #Quantidade de linhas e colunas do DataFrame
