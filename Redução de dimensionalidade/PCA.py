@@ -1,10 +1,17 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Jan 16 14:18:59 2020
+
+@author: caiqsilv
+"""
+
 import pandas as pd
 
 base = pd.read_csv('census.csv')
 
 previsores = base.iloc[:, 0:14].values
 classe = base.iloc[:, 14].values
-
+                
 from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 labelencoder_previsores = LabelEncoder()
 previsores[:, 1] = labelencoder_previsores.fit_transform(previsores[:, 1])
@@ -16,12 +23,6 @@ previsores[:, 8] = labelencoder_previsores.fit_transform(previsores[:, 8])
 previsores[:, 9] = labelencoder_previsores.fit_transform(previsores[:, 9])
 previsores[:, 13] = labelencoder_previsores.fit_transform(previsores[:, 13])
 
-onehotencoder = OneHotEncoder(categorical_features = [1,3,5,6,7,8,9,13])
-previsores = onehotencoder.fit_transform(previsores).toarray()
-
-labelencoder_classe = LabelEncoder()
-classe = labelencoder_classe.fit_transform(classe)
-
 from sklearn.preprocessing import StandardScaler
 scaler = StandardScaler()
 previsores = scaler.fit_transform(previsores)
@@ -29,8 +30,14 @@ previsores = scaler.fit_transform(previsores)
 from sklearn.model_selection import train_test_split
 previsores_treinamento, previsores_teste, classe_treinamento, classe_teste = train_test_split(previsores, classe, test_size=0.15, random_state=0)
 
-from sklearn.tree import DecisionTreeClassifier
-classificador = DecisionTreeClassifier(criterion='entropy', random_state=0)
+from sklearn.decomposition import PCA
+pca = PCA(n_components = None)
+previsores_treinamento = pca.fit_transform(previsores_treinamento)
+previsores_teste = pca.transform(previsores_teste)
+componentes = pca.explained_variance_ratio_
+
+from sklearn.ensemble import RandomForestClassifier
+classificador = RandomForestClassifier(n_estimators=40, criterion='entropy', random_state=0)
 classificador.fit(previsores_treinamento, classe_treinamento)
 previsoes = classificador.predict(previsores_teste)
 
