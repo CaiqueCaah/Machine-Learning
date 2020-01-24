@@ -49,6 +49,8 @@ df = df.dropna(subset=['nome_coluna'])
 >>> df.count()
 #Descrição da quantidade de dados em cada linha da coluna
 >>>df.nome_coluna.value_counts()
+#Contagem de nulos em cada coluna
+df.isnull().sum()
 
 	Criando uma nova coluna em um DataFrame:
 >>> df['Nova Coluna'] = 0
@@ -109,4 +111,4 @@ df.loc[0, 'País']
 >>>df1 = df[df.nome_coluna == 0 ].sample(quantidade)
 >>>df2 = df[df.nome_coluna == 1 ].sample(quantidade)
 #Concatenando as bases
->>>df_concat = pd.concat([df1, df2])
+>>>df_concat = pd.concat([df1, df2], axis = 1)
