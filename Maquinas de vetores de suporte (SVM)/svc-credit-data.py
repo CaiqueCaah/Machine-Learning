@@ -1,6 +1,6 @@
 import pandas as pd
 
-base = pd.read_csv('credit_data.csv')
+base = pd.read_csv('credit-data.csv')
 base.loc[base.age < 0, 'age'] = 40.92
                
 previsores = base.iloc[:, 1:4].values

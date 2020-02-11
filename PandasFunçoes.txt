@@ -51,6 +51,8 @@ df = df.dropna(subset=['nome_coluna'])
 >>>df.nome_coluna.value_counts()
 #Contagem de nulos em cada coluna
 df.isnull().sum()
+#Informa a quantidade de linhas e colunas
+>>> df.shape
 
 	Criando uma nova coluna em um DataFrame:
 >>> df['Nova Coluna'] = 0
