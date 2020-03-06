@@ -1,6 +1,6 @@
 import pandas as pd
 
-base = pd.read_csv('house_prices.csv')
+base = pd.read_csv('house-prices.csv')
 
 X = base.iloc[:, 3:19].values
 y = base.iloc[:, 2:3].values
